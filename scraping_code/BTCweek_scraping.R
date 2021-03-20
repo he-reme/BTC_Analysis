@@ -18,10 +18,14 @@ weekButton$clickElement()
 
 # 월마다의 날짜 수
 day <- c(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+blank <- c(12, 8, 8, 10, 12, 8, 10, 13, 9, 11, 7, 9 )
 
-month <- 3
+from_month <- 3
+to_month <- 3
+
 from <- 12
 to <- 18
+
 
 # 8주 데이터 수집
 for(i in 1:8){
@@ -29,13 +33,36 @@ for(i in 1:8){
   # from
   fromInput <- remDr$findElement(using='css selector','#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(1) > input[type=text]')
   fromInput$clickElement()
-  fromInput <- remDr$findElement(using='css selector', paste0('#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(2) > div > span:nth-child(', from+8, ')'))
+  if(from<=0){
+    prev <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(2) > header > span.prev')
+    prev$clickElement()
+    
+    from_month <- from_month-1
+    if(from_month==0){
+      from_month <- 12
+    }
+    
+    from <- day[month]+from-1
+  }
+  fromInput <- remDr$findElement(using='css selector', paste0('#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(2) > div > span:nth-child(', from+blank[from_month], ')'))
   fromInput$clickElement()  
   Sys.sleep(2)
   
+  # to
   toInput <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(1) > input[type=text]')
   toInput$clickElement() 
-  toInput <- remDr$findElement(using='css selector', paste0('#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(2) > div > span:nth-child(', to+8, ')'))
+  if(to<=0){
+     prev <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(2) > header > span.prev')
+    prev$clickElement()
+    
+    to_month <- to_month-1
+    if(to_month==0){
+      to_month <- 12
+    }
+    
+    to <- day[month]+to-1
+  }
+  toInput <- remDr$findElement(using='css selector', paste0('#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(2) > div > span:nth-child(', to+blank[to_month], ')'))
   toInput$clickElement()  
   Sys.sleep(2)
   
@@ -51,23 +78,5 @@ for(i in 1:8){
   
   from <- from-7
   to <- to-7
-  if(from<=0){
-    fromInput <- remDr$findElement(using='css selector','#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(1) > input[type=text]')
-    fromInput$clickElement()
-    prev <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(1) > div > div:nth-child(2) > header > span.prev')
-    prev$clickElement()
-    
-    month <- month-1
-    if(month==0){
-      month <- 12
-    }
-    from <- day[month]+from-1
-  }
-  if(to<=0){
-    toInput <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(1) > input[type=text]')
-    toInput$clickElement() 
-    prev <- remDr$findElement(using='css selector', '#price-index-page > div > div.col-xs-12.col-md-8.bb-price-index__price-col > div.bb-price-index__coinchart.coinchart > div > div.ccc-widget__wrapper > div > div:nth-child(2) > div.chart-filter.active > div:nth-child(2) > div > div:nth-child(2) > header > span.prev')
-    prev$clickElement()
-    to <- day[month]+to-1
-  }
+  
 }
