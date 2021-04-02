@@ -1,3 +1,5 @@
+# 설명 : 이상치 검측된 날짜 워드 클라우드
+
 library(rvest)
 library(XML)
 library(KoNLP)

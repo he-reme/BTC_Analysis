@@ -1,5 +1,6 @@
-library(dplyr)
+# 8주 비트코인 데이터터 전처리
 
+library(dplyr)
 
 ### 1차 전처리 (8개의 파일 합치기)
 file_name <- "C:/Users/H/BTC_Analysis/data/BTCweek/amCharts"

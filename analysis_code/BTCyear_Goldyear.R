@@ -1,4 +1,5 @@
-# 날짜에 따른 금의 가격과 비트코인 가격의 상관관계.. 
+# 설명 : 날짜에 따른 금의 가격과 비트코인 가격의 상관관계 구하기
+
 # 비트코인은 날짜별 최고가격으로 전처리 시키기
 BTCyear <- read.csv("C:/Users/H/BTC_Analysis/processing_code/BTCyear.csv")[-1]
 View(BTCyear)
